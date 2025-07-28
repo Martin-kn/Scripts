@@ -1,5 +1,12 @@
 ![app](BASH_SCRIPTS.png)
 
+## zabbix-agent2-install.sh
+
+Bash script to run with Ansible to configure all VMs:
+- Install Zabbix agent2
+- Enable service
+- Replace default zabbix server IP
+- Reboot service
 
 ## gif-ffmpeg.sh
 
