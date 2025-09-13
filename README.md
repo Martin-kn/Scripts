@@ -23,4 +23,6 @@ Script to create gif by passing a video as a parameter
 - Option to decrease the resolution of the gif
 
 
-  
+## pdfconverter (md to pdf)
+Shell function to convert markdown to PDF
+- Code block highlighting
