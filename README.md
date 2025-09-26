@@ -8,6 +8,15 @@ Bash script to run with Ansible to configure all VMs:
 - Replace default zabbix server IP
 - Reboot service
 
+## Nessus-update-core
+Script to update all Nessus components, including core components that sometimes need to stop the Nessus service and re-enable
+- Web interface sometimes is not working properly to perform updates
+- Save logs files
+- Check if the service needs to be stopped and then re-enable Nessus
+- Update all components: plugins/core components
+
+  
+
 ## docsearch.sh
 
 Popup menu to search and open PDF documents that I need to have on hand for reference
