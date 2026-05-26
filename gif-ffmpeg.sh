@@ -19,7 +19,6 @@ echo "Nombre del archivo (sin la extensión)"
 read nombre
 
 rutaArchivo="$(pwd)/$1"
-echo $p4
 
 echo "Desea bajar la resolución al archivo? [s/n]"
 read respuesta
@@ -33,9 +32,7 @@ echo -e "procesando . . . \n"
 
 if [ $respuesta == 's' ]
 then
-ffmpeg -t $parametro1 -ss $parametro2 -i $rutaArchivo -vf scale=800:-1:flags=lanczos $nombre.gif > /dev/null 2>&1
+ffmpeg -t "$parametro1" -ss "$parametro2" -i "$rutaArchivo" -vf scale=800:-1:flags=lanczos "$nombre.gif" > /dev/null 2>&1
 else
-ffmpeg -t $parametro1 -ss $parametro2 -i $rutaArchivo $nombre.gif > /dev/null 2>&1
+ffmpeg -t "$parametro1" -ss "$parametro2" -i "$rutaArchivo"  "$nombre.gif" > /dev/null 2>&1
 fi
-
-# SI EL ARCHIVO TIENE ESPACIOS EN EL NOMBRE DA ERROR.
