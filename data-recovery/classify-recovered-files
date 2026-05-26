@@ -1,0 +1,57 @@
+dst="/mnt/externo/Recuperados"
+src="/mnt/externo/recup_dir*"
+
+
+mkdir -p "$dst"/{docx,pdf,odt,keepass,notas,imagenes,scripts}
+
+total_copied=0
+
+copy_with_progress() {
+    local extension="$1"
+    local destino="$2"
+    local descripcion="$3"
+    local archivos=()
+
+    while IFS= read -r f; do
+        archivos+=("$f")
+    done < <(find "$src"/recup_dir* -name "$extension" 2>/dev/null)
+
+    local total=${#archivos[@]}
+
+    if [ "$total" -eq 0 ]; then
+        echo "[$descripcion] No files found"
+        return
+    fi
+
+    local copiados=0
+    for f in "${archivos[@]}"; do
+        cp "$f" "$destino/"
+        copiados=$((copiados + 1))
+        local porcentaje=$((copiados * 100 / total))
+        local bloques=$((porcentaje / 5))
+        local barra=$(printf '#%.0s' $(seq 1 $bloques))
+        local vacio=$(printf ' %.0s' $(seq 1 $((20 - bloques))))
+        printf "\r[$descripcion] [%s%s] %d/%d (%d%%)" \
+            "$barra" "$vacio" "$copiados" "$total" "$porcentaje"
+    done
+    echo ""
+
+    # Accumulate in global variable
+    total_copied=$((total_copied + total))
+}
+
+copy_with_progress "*.docx" "$dst/docx"     "DOCX    "
+copy_with_progress "*.pdf"  "$dst/pdf"      "PDF     "
+copy_with_progress "*.odt"  "$dst/odt"      "ODT     "
+copy_with_progress "*.kdbx" "$dst/keepass"  "KEEPASS "
+copy_with_progress "*.ctb"  "$dst/notas"    "NOTAS   "
+copy_with_progress "*.jex"  "$dst/notas"    "JOPLIN  "
+copy_with_progress "*.jpg"  "$dst/imagenes" "JPG     "
+copy_with_progress "*.png"  "$dst/imagenes" "PNG     "
+copy_with_progress "*.sh"   "$dst/scripts"  "SCRIPTS "
+copy_with_progress "*.py"   "$dst/scripts"  "PYTHON  "
+
+echo ""
+echo "================================"
+echo "  Total files copied: $total_copied"
+echo "================================"

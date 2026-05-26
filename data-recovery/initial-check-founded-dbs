@@ -1,0 +1,9 @@
+find recup_dir* \( -name "*.db" -o -name "*.sqlite" \) 2>/dev/null | while read f; do
+    size=$(wc -c < "$f")
+    size_mb=$((size / 1024 / 1024))
+    if [ "$size" -gt 1048576 ]; then  # Greater than 1MB
+        echo "=== $f (${size_mb}MB) ==="
+        sqlite3 "$f" ".tables" 2>/dev/null
+        echo ""
+    fi
+done
