@@ -1,5 +1,9 @@
 ![app](BASH_SCRIPTS.png)
 
+## Data-recovery
+Folder that contains scripts used to recover/classify +167K files from data loss incident.
+[Link](https://github.com/Martin-kn/Bash-scripts/tree/main/data-recovery)
+
 ## zabbix-agent2-install.sh
 
 Bash script to run with Ansible to configure all VMs:
